@@ -1,0 +1,28 @@
+{
+  "" : {
+    "diagnostics" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITests-master.dia",
+    "emit-module-dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITests-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITests-master-emit-module.dia",
+    "swift-dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITests-master.swiftdeps"
+  },
+  "/Users/stefano/Documents/RTCnew/RTCnewUITests/RTCnewUITests.swift" : {
+    "const-values" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITests.swiftconstvalues",
+    "dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITests.d",
+    "diagnostics" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITests.dia",
+    "index-unit-output-path" : "/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITests.o",
+    "llvm-bc" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITests.bc",
+    "object" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITests.o",
+    "swift-dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITests.swiftdeps",
+    "swiftmodule" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITests~partial.swiftmodule"
+  },
+  "/Users/stefano/Documents/RTCnew/RTCnewUITests/RTCnewUITestsLaunchTests.swift" : {
+    "const-values" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITestsLaunchTests.swiftconstvalues",
+    "dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITestsLaunchTests.d",
+    "diagnostics" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITestsLaunchTests.dia",
+    "index-unit-output-path" : "/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITestsLaunchTests.o",
+    "llvm-bc" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITestsLaunchTests.bc",
+    "object" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITestsLaunchTests.o",
+    "swift-dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITestsLaunchTests.swiftdeps",
+    "swiftmodule" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnewUITests.build/Objects-normal/arm64/RTCnewUITestsLaunchTests~partial.swiftmodule"
+  }
+}

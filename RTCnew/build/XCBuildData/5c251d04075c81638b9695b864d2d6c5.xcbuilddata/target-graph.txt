@@ -1,0 +1,10 @@
+Target dependency graph (5 targets)
+Target 'RTCnewUITests' in project 'RTCnew'
+➜ Explicit dependency on target 'RTCnew' in project 'RTCnew'
+Target 'RTCnewTests' in project 'RTCnew'
+➜ Explicit dependency on target 'RTCnew' in project 'RTCnew'
+Target 'RTCnew' in project 'RTCnew'
+➜ Implicit dependency on target 'Pods-RTCnew' in project 'Pods' via file 'libPods-RTCnew.a' in build phase 'Link Binary'
+Target 'Pods-RTCnew' in project 'Pods'
+➜ Explicit dependency on target 'GoogleWebRTC' in project 'Pods'
+Target 'GoogleWebRTC' in project 'Pods' (no dependencies)

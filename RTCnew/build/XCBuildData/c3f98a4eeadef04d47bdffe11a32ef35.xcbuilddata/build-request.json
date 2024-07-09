@@ -1,0 +1,68 @@
+{
+  "buildCommand" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildAndRun"
+  },
+  "configuredTargets" : [
+    {
+      "guid" : "8e23b72563f02ebd15f2ec781a1282439b651efe0af6b74dd518cb39f71c327d"
+    }
+  ],
+  "containerPath" : "/Users/stefano/Documents/RTCnew/RTCnew.xcworkspace",
+  "continueBuildingAfterErrors" : false,
+  "dependencyScope" : "workspace",
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "arm64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "platform" : "iphoneos",
+      "sdk" : "iphoneos17.4",
+      "sdkVariant" : "iphoneos",
+      "supportedArchitectures" : [
+        "arm64v8",
+        "arm64",
+        "armv8"
+      ],
+      "targetArchitecture" : "arm64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "",
+      "buildProductsPath" : "",
+      "derivedDataPath" : "/Users/stefano/Library/Developer/Xcode/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/stefano/Library/Developer/Xcode/DerivedData/RTCnew-ebgjlzkqovovqbagaavxdtcfayfg/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/stefano/Library/Developer/Xcode/DerivedData/RTCnew-ebgjlzkqovovqbagaavxdtcfayfg/Index.noindex/PrecompiledHeaders",
+      "pchPath" : ""
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ASSETCATALOG_FILTER_FOR_DEVICE_MODEL" : "iPad7,11",
+          "ASSETCATALOG_FILTER_FOR_DEVICE_OS_VERSION" : "17.4.1",
+          "ASSETCATALOG_FILTER_FOR_THINNING_DEVICE_CONFIGURATION" : "iPad7,11",
+          "BUILD_ACTIVE_RESOURCES_ONLY" : "YES",
+          "CLANG_COVERAGE_MAPPING" : "YES",
+          "CLANG_PROFILE_DATA_DIRECTORY" : "/Users/stefano/Library/Developer/Xcode/DerivedData/RTCnew-ebgjlzkqovovqbagaavxdtcfayfg/CodeCoverage/ProfileData",
+          "ENABLE_PREVIEWS" : "NO",
+          "ENABLE_XOJIT_PREVIEWS" : "NO",
+          "ONLY_ACTIVE_ARCH" : "YES",
+          "TARGET_DEVICE_IDENTIFIER" : "7241ababac4a7d9f9ac803bac2fc7900a77e01ad",
+          "TARGET_DEVICE_MODEL" : "iPad7,11",
+          "TARGET_DEVICE_OS_VERSION" : "17.4.1",
+          "TARGET_DEVICE_PLATFORM_NAME" : "iphoneos"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

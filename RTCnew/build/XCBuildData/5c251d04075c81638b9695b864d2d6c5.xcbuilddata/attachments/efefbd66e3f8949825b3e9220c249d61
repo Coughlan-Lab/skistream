@@ -1,0 +1,68 @@
+{
+  "" : {
+    "diagnostics" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/RTCnew-master.dia",
+    "emit-module-dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/RTCnew-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/RTCnew-master-emit-module.dia",
+    "swift-dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/RTCnew-master.swiftdeps"
+  },
+  "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/stefano/Documents/RTCnew/RTCnew/Config.swift" : {
+    "const-values" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Config.swiftconstvalues",
+    "dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Config.d",
+    "diagnostics" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Config.dia",
+    "index-unit-output-path" : "/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Config.o",
+    "llvm-bc" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Config.bc",
+    "object" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Config.o",
+    "swift-dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Config.swiftdeps",
+    "swiftmodule" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Config~partial.swiftmodule"
+  },
+  "/Users/stefano/Documents/RTCnew/RTCnew/ContentView.swift" : {
+    "const-values" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/stefano/Documents/RTCnew/RTCnew/Network.swift" : {
+    "const-values" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Network.swiftconstvalues",
+    "dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Network.d",
+    "diagnostics" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Network.dia",
+    "index-unit-output-path" : "/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Network.o",
+    "llvm-bc" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Network.bc",
+    "object" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Network.o",
+    "swift-dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Network.swiftdeps",
+    "swiftmodule" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Network~partial.swiftmodule"
+  },
+  "/Users/stefano/Documents/RTCnew/RTCnew/Peer.swift" : {
+    "const-values" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Peer.swiftconstvalues",
+    "dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Peer.d",
+    "diagnostics" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Peer.dia",
+    "index-unit-output-path" : "/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Peer.o",
+    "llvm-bc" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Peer.bc",
+    "object" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Peer.o",
+    "swift-dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Peer.swiftdeps",
+    "swiftmodule" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/Peer~partial.swiftmodule"
+  },
+  "/Users/stefano/Documents/RTCnew/RTCnew/RTCnewApp.swift" : {
+    "const-values" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/RTCnewApp.swiftconstvalues",
+    "dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/RTCnewApp.d",
+    "diagnostics" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/RTCnewApp.dia",
+    "index-unit-output-path" : "/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/RTCnewApp.o",
+    "llvm-bc" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/RTCnewApp.bc",
+    "object" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/RTCnewApp.o",
+    "swift-dependencies" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/RTCnewApp.swiftdeps",
+    "swiftmodule" : "/Users/stefano/Documents/RTCnew/build/RTCnew.build/Debug-iphoneos/RTCnew.build/Objects-normal/arm64/RTCnewApp~partial.swiftmodule"
+  }
+}
