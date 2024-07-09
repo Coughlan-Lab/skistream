@@ -9,7 +9,6 @@ import sys
 
 import socket
 
-import cv2
 from aiohttp import web
 from aiortc import MediaStreamTrack, RTCPeerConnection, RTCSessionDescription
 import time
