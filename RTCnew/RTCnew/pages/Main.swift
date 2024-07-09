@@ -66,7 +66,8 @@ struct Main: View {
             
         }
         
-        if (conf.ARSession_settings[.ObjectDetection]!.enabled && ARWorldTrackingConfiguration.supportsSceneReconstruction(.meshWithClassification)) {
+        if (conf.ARSession_settings[.ObjectDetection]!.enabled && 
+            !(ARWorldTrackingConfiguration.supportsSceneReconstruction(.meshWithClassification))) {
             unavailableSensors.append("Object classification (meshWithClassification)")
         }
         
