@@ -10,7 +10,8 @@ import Foundation
 class Model: ObservableObject {
     static let shared: Model = Model()
     
-    @Published var remoteIP: String = "192.168.1.28:5000"
+    //@Published var remoteIP: String = "192.168.1.28:5000"
+    @Published var remoteIP: String = Storage.shared.loadString()
     public let offerEndpoint = "/offer"
     public let synchEndpoint = "/synch"
     
@@ -45,7 +46,7 @@ enum ReceiverState {
     case serverDelay
 }
 
-enum Pages: String, CaseIterable {
+enum Pages: String, CaseIterable, Hashable {
     case SessionSettings
     case ConnectionSettings
     case Main

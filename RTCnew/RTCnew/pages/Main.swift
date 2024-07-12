@@ -23,11 +23,15 @@ struct Main: View {
     @State private var alert_unavailableSensors: Bool = false
     @State private var unavailableSensors: [String] = []
     
+    @Binding var delay: Double
+    
     func checkSensorAvailability() {
         guard let conf = Model.shared.t_currentConf else {
             print("Error: No configuration available")
             return
         }
+        
+        unavailableSensors = []
         
         if conf.sensors[DataTypes.Gyroscope]!.enabled && !SensorManager.shared.motionManager.isGyroAvailable {
             unavailableSensors.append("Gyroscope")
@@ -92,13 +96,16 @@ struct Main: View {
         DataTransmitter.shared.start()
         SensorManager.shared.startAll()
         
-        switch Model.shared.t_currentConf!.ARSession_conf {
-        case .ARWorldTrackingConfiguration:
-            arView_WorldTracking = ARView_WorldTracking()
-        default:
-            arView_WorldTracking = ARView_WorldTracking()
+        if Model.shared.t_currentConf!.ARSession {
+            switch Model.shared.t_currentConf!.ARSession_conf {
+            case .ARWorldTrackingConfiguration:
+                arView_WorldTracking = ARView_WorldTracking()
+            default:
+                arView_WorldTracking = ARView_WorldTracking()
+            }
+
         }
-        
+                
         isRunning = true
     }
     
@@ -117,7 +124,7 @@ struct Main: View {
             if model.receiverState != .serverDelay {Text("synch with receiver before start").foregroundStyle(.red)}
             if model.t_currentConf == nil {Text("choose a configuration in SessionSettings tab before start").foregroundStyle(.red)}
             if transmitter.channel == nil {Text("no available channel, connect in connectionSetting tab or close and reopen the app if the problem persist").foregroundStyle(.red)}
-            
+            if isRunning{Text("delay (ms): \(self.delay)")}
             HStack {
                 Circle()
                     .fill(isRunning ? Color.green : Color.red)
@@ -134,6 +141,7 @@ struct Main: View {
                 stopAll()
             }.buttonStyle(.bordered).disabled(!allOk())
             if arView_WorldTracking != nil {arView_WorldTracking!}
+            Spacer()
         }
         .onChange(of: connectionState) { newValue in
             if newValue != .connected && isRunning {

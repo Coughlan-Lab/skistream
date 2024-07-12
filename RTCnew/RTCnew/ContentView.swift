@@ -38,108 +38,148 @@ struct ContentView: View {
     @State var delay: Double = 0.0
     
     var body: some View {
-        VStack{
-            Text(notification)
-            .onTapGesture {
-                notification = ""
-                notificationBackgroundColor = Color.white
-            }
-            .background(notificationBackgroundColor)
-            .cornerRadius(4)
-            .padding(.all, 5)
-            .onReceive(
-                NotificationCenter.default.publisher(for: .genericMessage),
-                perform: { notif in
-                    if let m = notif.object as? [String: Any] {
-                        notification = "\(m["msg"] as! String), tap to remove"
-                        notificationBackgroundColor = m["backgroundColor"] as! Color
+        ZStack{
+            //Content
+            VStack{
+                /*if ActualPage != .SessionSettings {
+                    ScrollView(.horizontal, showsIndicators: true){
+                        HStack{
+                            Text("dataChannel.connectionState: \(dataChannelConnectionState_str)").onReceive(
+                                NotificationCenter.default.publisher(for: .dataChannelConnectionState),
+                                perform: { notif in
+                                    if let m = notif.object as? RTCIceConnectionState {
+                                        dataChannelConnectionState = m
+                                        switch m {
+                                        case .checking: dataChannelConnectionState_str = "checking"
+                                        case .closed: dataChannelConnectionState_str = "closed"
+                                        case .completed: dataChannelConnectionState_str = "completed"
+                                        case .connected: dataChannelConnectionState_str = "connected"
+                                        case .count: dataChannelConnectionState_str = "count"
+                                        case .disconnected: dataChannelConnectionState_str = "disconnected"
+                                        case .failed: dataChannelConnectionState_str = "failed"
+                                        case .new: dataChannelConnectionState_str = "new"
+                                        default: dataChannelConnectionState_str = "Unknown"
+                                        }
+                                    }
+                                    
+                                }
+                            )
+                            Text("dataChannel.available: \(transmitter.channel != nil)").onReceive(
+                                NotificationCenter.default.publisher(for: .dataChannelReadyState),
+                                perform: { notif in
+                                    if let m = notif.object as? RTCDataChannelState {
+                                        switch m {
+                                        case .closing: dataChannelState = "closing"
+                                        case .connecting: dataChannelState = "connecting"
+                                        case .open: dataChannelState = "open"
+                                        case .closed: dataChannelState = "closed"
+                                        default: dataChannelState = "unknown"
+                                        }
+                                    }
+                                    
+                                }
+                            )
+                            Text("delay (ms): \(delay)").onReceive(
+                                NotificationCenter.default.publisher(for: .delay),
+                                perform: { if let m = $0.object as? Double {delay = m}}
+                            )
+                        }
+                        Divider()
+                        
                     }
-                    //print(msg)
-                    //if let m = msg.object as? String {notification=m}
+                }*/
+                
+                TabView(selection: $ActualPage) {
+                    NavigationStack() {SessionSettings()}
+                    .tabItem {
+                        Label("Configuration", systemImage: "slider.horizontal.3")
+                    }
+                    .tag(Pages.SessionSettings)
+                    
+                    NavigationStack() {ConnectionSettings(connectionState: $dataChannelConnectionState, dataChannelConnectionState_str: $dataChannelConnectionState_str)}
+                    .tabItem {
+                        Label("Connection", systemImage: "link.circle")
+                    }
+                    .tag(Pages.ConnectionSettings)
+                    
+                    NavigationStack() {Main(connectionState: $dataChannelConnectionState, delay: $delay)}
+                    .tabItem {
+                        Label("Stream Data", systemImage: "arrow.triangle.pull")
+                    }
+                    .tag(Pages.Main)
+                        
+                }
+                
+            }
+            .onReceive(
+                NotificationCenter.default.publisher(for: .dataChannelConnectionState),
+                perform: { notif in
+                    if let m = notif.object as? RTCIceConnectionState {
+                        dataChannelConnectionState = m
+                        switch m {
+                        case .checking: dataChannelConnectionState_str = "checking"
+                        case .closed: dataChannelConnectionState_str = "closed"
+                        case .completed: dataChannelConnectionState_str = "completed"
+                        case .connected: dataChannelConnectionState_str = "connected"
+                        case .count: dataChannelConnectionState_str = "count"
+                        case .disconnected: dataChannelConnectionState_str = "disconnected"
+                        case .failed: dataChannelConnectionState_str = "failed"
+                        case .new: dataChannelConnectionState_str = "new"
+                        default: dataChannelConnectionState_str = "Unknown"
+                        }
+                    }
+                    
                 }
             )
-            
-            
-            
-            HStack{
-                ForEach(Pages.allCases, id: \.hashValue) { page in
-                    Button(page.rawValue){ActualPage = page}.buttonStyle(.bordered).disabled(ActualPage == page)
-                }
-            }
-            Divider()
-            //Text("receiver state: \(model.receiverState)")
-            /*HStack {
-                Circle()
-                    .fill(model.receiverState == .serverDelay ? Color.green : Color.red)
-                    .frame(width: 20, height: 20)
-                
-                Text(model.receiverState == .serverDelay ? "synchronized" : "out of sync")
-                    .padding(.leading, 10)
-            }*/
-            
-            ScrollView(.horizontal, showsIndicators: true){
-                HStack{
-                    Text("dataChannel.connectionState: \(dataChannelConnectionState_str)").onReceive(
-                        NotificationCenter.default.publisher(for: .dataChannelConnectionState),
-                        perform: { notif in
-                            if let m = notif.object as? RTCIceConnectionState {
-                                dataChannelConnectionState = m
-                                switch m {
-                                case .checking: dataChannelConnectionState_str = "checking"
-                                case .closed: dataChannelConnectionState_str = "closed"
-                                case .completed: dataChannelConnectionState_str = "completed"
-                                case .connected: dataChannelConnectionState_str = "connected"
-                                case .count: dataChannelConnectionState_str = "count"
-                                case .disconnected: dataChannelConnectionState_str = "disconnected"
-                                case .failed: dataChannelConnectionState_str = "failed"
-                                case .new: dataChannelConnectionState_str = "new"
-                                default: dataChannelConnectionState_str = "Unknown"
-                                }
-                            }
-                            
+            .onReceive(
+                NotificationCenter.default.publisher(for: .dataChannelReadyState),
+                perform: { notif in
+                    if let m = notif.object as? RTCDataChannelState {
+                        switch m {
+                        case .closing: dataChannelState = "closing"
+                        case .connecting: dataChannelState = "connecting"
+                        case .open: dataChannelState = "open"
+                        case .closed: dataChannelState = "closed"
+                        default: dataChannelState = "unknown"
                         }
-                    )
-                    Text("dataChannel.available: \(transmitter.channel != nil)").onReceive(
-                        NotificationCenter.default.publisher(for: .dataChannelReadyState),
-                        perform: { notif in
-                            if let m = notif.object as? RTCDataChannelState {
-                                switch m {
-                                case .closing: dataChannelState = "closing"
-                                case .connecting: dataChannelState = "connecting"
-                                case .open: dataChannelState = "open"
-                                case .closed: dataChannelState = "closed"
-                                default: dataChannelState = "unknown"
-                                }
-                            }
-                            
-                        }
-                    )
-                    Text("delay (ms): \(delay)").onReceive(
-                        NotificationCenter.default.publisher(for: .delay),
-                        perform: { if let m = $0.object as? Double {delay = m}}
-                    )
+                    }
+                    
                 }
+            )
+            .onReceive(
+                NotificationCenter.default.publisher(for: .delay),
+                perform: { if let m = $0.object as? Double {delay = m}}
+            )
+            
+            //Notification
+            VStack{
+                Text(notification)
+                .onTapGesture {
+                    notification = ""
+                    notificationBackgroundColor = Color.white
+                }
+                .background(notificationBackgroundColor)
+                .cornerRadius(4)
+                .padding(.all, 5)
+                .onReceive(
+                    NotificationCenter.default.publisher(for: .genericMessage),
+                    perform: { notif in
+                        if let m = notif.object as? [String: Any] {
+                            notification = "\(m["msg"] as! String), tap to remove"
+                            notificationBackgroundColor = m["backgroundColor"] as! Color
+                        }
+                        //print(msg)
+                        //if let m = msg.object as? String {notification=m}
+                    }
+                )
+                Spacer()
+
                 
             }
             
-            
-            
-            Divider()
         }
         
-        switch ActualPage {
-        case .ConnectionSettings:
-            ConnectionSettings(connectionState: $dataChannelConnectionState)
-        case .Main:
-            Main(connectionState: $dataChannelConnectionState)
-        case .SessionSettings:
-            SessionSettings()
-        case .Socket:
-            Socket()
-        default:
-            SessionSettings()
-        }
-        Spacer()
+        
     }
 }
 

@@ -13,6 +13,8 @@ struct ConnectionSettings: View {
     //let peer = Peer()
     
     @Binding var connectionState: RTCIceConnectionState
+    @Binding var dataChannelConnectionState_str: String
+    @StateObject var transmitter: DataTransmitter = DataTransmitter.shared
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: true){
@@ -20,14 +22,20 @@ struct ConnectionSettings: View {
                 HStack{
                     Text("remote ip: ")
                     TextField("remoteIP", text: $model.remoteIP).textFieldStyle(.roundedBorder)
-                    Button("connect to peer") {
-                        Task{
-                            let offer = await Peer.shared.createoffer()
-                            let answer = try await sendOffer(endpoint: "http://\(model.remoteIP)\(model.offerEndpoint)", offer: offer)
-                            if answer["code"] as! Int==1 {Peer.shared.setRemoteSDP(remoteSdpString: answer["sdp"] as! String)}
-                        }
-                    }.buttonStyle(.bordered)
                 }
+                
+                Button("connect to peer") {
+                    Storage.shared.saveString(model.remoteIP)
+                    Task{
+                        let offer = await Peer.shared.createoffer()
+                        let answer = try await sendOffer(endpoint: "http://\(model.remoteIP)\(model.offerEndpoint)", offer: offer)
+                        if answer["code"] as! Int==1 {Peer.shared.setRemoteSDP(remoteSdpString: answer["sdp"] as! String)}
+                    }
+                }.buttonStyle(.bordered)
+                
+                Text("dataChannel.connectionState: \(dataChannelConnectionState_str)")
+                Text("dataChannel.available: \(transmitter.channel != nil)")
+                
 
                 //ClockSynchView(connectionState: $connectionState).border(Color.red, width: 1.0)
                 HStack{

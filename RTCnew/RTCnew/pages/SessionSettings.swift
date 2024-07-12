@@ -24,6 +24,7 @@ struct SessionSettings: View {
     
     @State private var show_ModalSelectConf = false
     @State private var show_ModalSaveConf = false
+    @State private var show_Filter = false
     
     init() {
         if let c = Model.shared.t_currentConf {
@@ -151,35 +152,43 @@ struct SessionSettings: View {
     
     var body: some View {
         VStack{
-            if let listOfSettings = listOfFilesURL(path: [Model.shared.settingDir]) {
-                HStack{
-                    Button("load configuration"){show_ModalSelectConf = true}.buttonStyle(.bordered).disabled(listOfSettings.count == 0)
-                    
-                    Text("Available configurations: \(listOfSettings.count)")
-                    if (name != "") {
-                        Text("Loaded: \(name)")
-                    }
+            
+            HStack{
+                //FILTER
+                Button(action: {show_Filter = !show_Filter}){
+                    Image(systemName: show_Filter ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+                    Text("filter")
+                }
+                Spacer()
+                //DESELECT ALL
+                Button(action: self.deselectAll){
+                    Image(systemName: "checkmark.circle")
+                    Text("uncheck all")
+                }
+                Spacer()
+                //SELECT ALL
+                Button(action: self.selectAll){
+                    Image(systemName: "checkmark.circle.fill")
+                    Text("check all")
                 }
                 
-            } else {
-                Text("error while reading \(Model.shared.settingDir) directory")
-                
+            }
+            
+            if show_Filter{
+                HStack{
+                    Text("filter: ")
+                    TextField("filter", text: $filter).textFieldStyle(.roundedBorder)
+                    Button("clear", action: {filter = ""}).buttonStyle(.bordered)
+                }
             }
             
             
-            HStack{
-                Text("filter: ")
-                TextField("filter", text: $filter).textFieldStyle(.roundedBorder)
-                Button("clear", action: {filter = ""}).buttonStyle(.bordered)
-            }
-            
-            
-            HStack{
+            /*HStack{
                 Button("select all", action: self.selectAll).buttonStyle(.bordered)
                 .containerRelativeFrame(.horizontal, count: 2, span: 1, spacing: 10)
                 Button("deselect all", action: self.deselectAll).buttonStyle(.bordered)
                 .containerRelativeFrame(.horizontal, count: 2, span: 1, spacing: 10)
-            }
+            }*/
             //Button("printConf", action: {printConf(conf: self.currentConf)}).buttonStyle(.bordered)
             ScrollView(.vertical, showsIndicators: true){
                 //Sensors
@@ -313,7 +322,40 @@ struct SessionSettings: View {
             
             
             Divider()
-            Button("save configuration"){show_ModalSaveConf = true}.buttonStyle(.borderedProminent)
+            HStack{
+                if let listOfSettings = listOfFilesURL(path: [Model.shared.settingDir]) {
+                    HStack{
+                        Button(action: {show_ModalSelectConf = true}){
+                            HStack{
+                                Image(systemName: "square.and.arrow.up.fill")
+                                Text("Load")
+                            }
+                            
+                        }.disabled(listOfSettings.count == 0)
+                        
+                        //Button("load configuration"){show_ModalSelectConf = true}.buttonStyle(.bordered).disabled(listOfSettings.count == 0)
+                        
+                        //Text("Available configurations: \(listOfSettings.count)")
+                        if (name != "") {
+                            Text("Loaded: \(name)")
+                        }
+                    }
+                    
+                } else {
+                    Text("error while reading \(Model.shared.settingDir) directory")
+                    
+                }
+                Spacer()
+                Button(action: {show_ModalSaveConf = true}){
+                    HStack{
+                        Image(systemName: "square.and.arrow.down.fill")
+                        Text("Save")
+                    }
+                    
+                }.buttonStyle(.borderedProminent)
+                //Button("save configuration"){show_ModalSaveConf = true}.buttonStyle(.borderedProminent)
+            }
+            
             
                 
             Text("\(self.refresh)").foregroundStyle(.white)
@@ -454,9 +496,60 @@ struct Card2: View {
         return Button("edit"){showEditModal = true}.disabled(!pV.enabled)
         .sheet(isPresented: $showEditModal) {
             VStack{
-                Text("edit modal")
-                Button("printConf"){Model.shared.t_currentConf?.printC()}
+                //Text("edit modal")
+                //Button("printConf"){Model.shared.t_currentConf?.printC()}
                 HStack{
+                    Text("priority").containerRelativeFrame(.horizontal, count: 4, span: 1, spacing: 0)
+                    HStack{
+                        Picker("priority", selection: Binding(
+                            get: {PriorityLevel.get_priorityFromValues(bp: pV.basePriority, pi: pV.priorityIncrement)},
+                            set: {
+                                pV.basePriority = $0.get_basePriority() ?? -1
+                                pV.priorityIncrement = $0.get_priorityIncrement() ?? -1
+                                updateView()
+                            }
+                        )){
+                            ForEach(PriorityLevel.allCases, id: \.self) { item in
+                                Text(item.rawValue).tag(item)
+                            }
+                        }
+                        Button(action: {
+                            showingInfo = true
+                            infoText = InfoText.priority.getText()
+                        }){Image(systemName: "info.circle")}
+                    }
+                }
+                HStack{
+                    Text("basePriority (ms)")
+                    HStack{
+                        TextField(
+                            "basePriority",
+                            value: $pV.basePriority,
+                            format: .number
+                        )
+                        .textFieldStyle(.roundedBorder).disabled(PriorityLevel.get_priorityFromValues(bp: pV.basePriority, pi: pV.priorityIncrement) != .personalized)
+                        Button(action: {
+                            showingInfo = true
+                            infoText = InfoText.basePriority.getText()
+                        }){Image(systemName: "info.circle")}
+                    }
+                }
+                HStack{
+                    Text("priorityIncrement (ms)")
+                    HStack{
+                        TextField(
+                            "priorityIncrement",
+                            value: $pV.priorityIncrement,
+                            format: .number
+                        )
+                        .textFieldStyle(.roundedBorder).disabled(PriorityLevel.get_priorityFromValues(bp: pV.basePriority, pi: pV.priorityIncrement) != .personalized)
+                        Button(action: {
+                            showingInfo = true
+                            infoText = InfoText.priorityIncrement.getText()
+                        }){Image(systemName: "info.circle")}
+                    }
+                }
+                /*HStack{
                     Text("priority").containerRelativeFrame(.horizontal, count: 4, span: 1, spacing: 0)
                     VStack{
                         HStack{
@@ -504,7 +597,7 @@ struct Card2: View {
                             }){Image(systemName: "info.circle")}
                         }
                     }
-                }
+                }*/
                 Divider().padding(.all, 10)
                 HStack{
                     Text("queuePolicy").containerRelativeFrame(.horizontal, count: 4, span: 1, spacing: 0)
@@ -531,7 +624,7 @@ struct Card2: View {
                                 value: $pV.updateInterval,
                                 format: .number
                             )
-                            .keyboardType(.numberPad).textFieldStyle(.roundedBorder)
+                            .textFieldStyle(.roundedBorder)
                             Button(action: {
                                 showingInfo = true
                                 infoText = InfoText.updateInterval.getText()

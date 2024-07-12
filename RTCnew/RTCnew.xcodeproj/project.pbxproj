@@ -12,6 +12,7 @@
 		7B0D10292C2ADED900273112 /* ConnectionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D10282C2ADED900273112 /* ConnectionSettings.swift */; };
 		7B0D102B2C2AFE9D00273112 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D102A2C2AFE9D00273112 /* Main.swift */; };
 		7B0D102D2C2B036F00273112 /* SessionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D102C2C2B036F00273112 /* SessionSettings.swift */; };
+		7B2096702C41315D00DFC45F /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B20966F2C41315D00DFC45F /* Storage.swift */; };
 		7B2391D32C354A300073ACDC /* ARView_WorldTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2391D22C354A300073ACDC /* ARView_WorldTracking.swift */; };
 		7B2E9B292BDD150F007C08A3 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E9B282BDD150F007C08A3 /* Network.swift */; };
 		7B35135B2C22ACC800F3B3E1 /* DataTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B35135A2C22ACC800F3B3E1 /* DataTransmitter.swift */; };
@@ -61,6 +62,7 @@
 		7B0D10282C2ADED900273112 /* ConnectionSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionSettings.swift; sourceTree = "<group>"; };
 		7B0D102A2C2AFE9D00273112 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		7B0D102C2C2B036F00273112 /* SessionSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSettings.swift; sourceTree = "<group>"; };
+		7B20966F2C41315D00DFC45F /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		7B2391D22C354A300073ACDC /* ARView_WorldTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARView_WorldTracking.swift; sourceTree = "<group>"; };
 		7B2E9B282BDD150F007C08A3 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		7B35135A2C22ACC800F3B3E1 /* DataTransmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransmitter.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				7B623C832C25CB3B00A2B851 /* Model.swift */,
 				7B0D10252C2AD56E00273112 /* Utils.swift */,
 				7B6994902C36A471006F82D4 /* Configuration.swift */,
+				7B20966F2C41315D00DFC45F /* Storage.swift */,
 			);
 			path = RTCnew;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				7B0D10262C2AD56E00273112 /* Utils.swift in Sources */,
 				7B623C842C25CB3B00A2B851 /* Model.swift in Sources */,
 				7BB0C9F12C21BFA80036959E /* DataPacket.swift in Sources */,
+				7B2096702C41315D00DFC45F /* Storage.swift in Sources */,
 				7BDF90F42C24639900271598 /* SensorManager.swift in Sources */,
 				7BB0C9ED2C21BF1B0036959E /* DataFilter.swift in Sources */,
 				7B623C822C25CAC200A2B851 /* ClockSynchView.swift in Sources */,
