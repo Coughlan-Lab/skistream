@@ -18,6 +18,6 @@ struct Storage {
     }
     
     func loadString() -> String {
-        return defaults.string(forKey: key) ?? "192.168.X.X:5000"
+        return defaults.string(forKey: key) ?? "192.168.X.X"
     }
 }

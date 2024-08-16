@@ -15,7 +15,8 @@ class DataBuffer {
     var buffer: [DataPacket] = []
     //var maxSize: Int = Int(10 * 1000000) // bytes to MB
     //var maxSize: Int = 16 * 1000 // 16KB, max datachannel x msg
-    var maxSize: Int = 500 * 1000 // x * 1000 = x KB
+    var maxSize: Int = 50 * 1000 // x * 1000 = x KB
+    //var maxSize: Int = 	65507 // max MTU using udp without headers
     
     func push(packet: DataPacket) -> Bool {
         DispatchQueue.global().sync{ self.lock.lock() }

@@ -34,6 +34,7 @@
 		7BC8EFC02BDBAFFF001F8D88 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC8EFBF2BDBAFFF001F8D88 /* Config.swift */; };
 		7BCD1ACD2BDA504900BF1732 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD1ACC2BDA504900BF1732 /* Peer.swift */; };
 		7BDF90F42C24639900271598 /* SensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDF90F32C24639900271598 /* SensorManager.swift */; };
+		7BF0D5502C6F53D90023F150 /* SocketPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0D54F2C6F53D90023F150 /* SocketPeer.swift */; };
 		7BF5FDFE2BDE8080000FE41C /* extensionNotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF5FDFD2BDE8080000FE41C /* extensionNotificationName.swift */; };
 		7BF5FE002BDE841A000FE41C /* ARSCNViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF5FDFF2BDE8419000FE41C /* ARSCNViewContainer.swift */; };
 /* End PBXBuildFile section */
@@ -88,6 +89,7 @@
 		7BC8EFBF2BDBAFFF001F8D88 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		7BCD1ACC2BDA504900BF1732 /* Peer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
 		7BDF90F32C24639900271598 /* SensorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorManager.swift; sourceTree = "<group>"; };
+		7BF0D54F2C6F53D90023F150 /* SocketPeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketPeer.swift; sourceTree = "<group>"; };
 		7BF5FDFD2BDE8080000FE41C /* extensionNotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionNotificationName.swift; sourceTree = "<group>"; };
 		7BF5FDFF2BDE8419000FE41C /* ARSCNViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSCNViewContainer.swift; sourceTree = "<group>"; };
 		B5AF09B7CA22B12CC9F9FC6E /* Pods-RTCnew.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RTCnew.release.xcconfig"; path = "Target Support Files/Pods-RTCnew/Pods-RTCnew.release.xcconfig"; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				7B0D10252C2AD56E00273112 /* Utils.swift */,
 				7B6994902C36A471006F82D4 /* Configuration.swift */,
 				7B20966F2C41315D00DFC45F /* Storage.swift */,
+				7BF0D54F2C6F53D90023F150 /* SocketPeer.swift */,
 			);
 			path = RTCnew;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				7B623C842C25CB3B00A2B851 /* Model.swift in Sources */,
 				7BB0C9F12C21BFA80036959E /* DataPacket.swift in Sources */,
 				7B2096702C41315D00DFC45F /* Storage.swift in Sources */,
+				7BF0D5502C6F53D90023F150 /* SocketPeer.swift in Sources */,
 				7BDF90F42C24639900271598 /* SensorManager.swift in Sources */,
 				7BB0C9ED2C21BF1B0036959E /* DataFilter.swift in Sources */,
 				7B623C822C25CAC200A2B851 /* ClockSynchView.swift in Sources */,
@@ -616,7 +620,14 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera access for uploading images";
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Need to compute the location";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Need to compute the location";
+				INFOPLIST_KEY_NSLocationTemporaryUsageDescriptionDictionary = "Need to compute the location";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Need to compute the location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Need to compute the location";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Need microphone access for uploading audio";
+				INFOPLIST_KEY_NSMotionUsageDescription = "Need to compute the motion";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -628,7 +639,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = it.unimi.di.ewlab.RTCnew;
+				PRODUCT_BUNDLE_IDENTIFIER = it.unimi.di.ewlab.RTCnew.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -650,7 +661,14 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera access for uploading images";
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Need to compute the location";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Need to compute the location";
+				INFOPLIST_KEY_NSLocationTemporaryUsageDescriptionDictionary = "Need to compute the location";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Need to compute the location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Need to compute the location";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Need microphone access for uploading audio";
+				INFOPLIST_KEY_NSMotionUsageDescription = "Need to compute the motion";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -662,7 +680,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = it.unimi.di.ewlab.RTCnew;
+				PRODUCT_BUNDLE_IDENTIFIER = it.unimi.di.ewlab.RTCnew.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

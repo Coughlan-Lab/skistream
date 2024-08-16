@@ -96,17 +96,26 @@ struct ContentView: View {
                     }
                     .tag(Pages.SessionSettings)
                     
-                    NavigationStack() {ConnectionSettings(connectionState: $dataChannelConnectionState, dataChannelConnectionState_str: $dataChannelConnectionState_str)}
+                    /*NavigationStack() {ConnectionSettings(connectionState: $dataChannelConnectionState, dataChannelConnectionState_str: $dataChannelConnectionState_str)}
                     .tabItem {
                         Label("Connection", systemImage: "link.circle")
                     }
-                    .tag(Pages.ConnectionSettings)
+                    .tag(Pages.ConnectionSettings)*/
+                    
+                    NavigationStack() {Socket()}
+                    .tabItem {
+                        Label("Socket Connection", systemImage: "link.circle")
+                    }
+                    .tag(Pages.Socket)
+                    
                     
                     NavigationStack() {Main(connectionState: $dataChannelConnectionState, delay: $delay)}
                     .tabItem {
                         Label("Stream Data", systemImage: "arrow.triangle.pull")
                     }
                     .tag(Pages.Main)
+                    
+                    
                         
                 }
                 

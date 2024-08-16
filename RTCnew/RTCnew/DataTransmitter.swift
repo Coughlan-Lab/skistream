@@ -95,11 +95,19 @@ class DataTransmitter: ObservableObject {
             guard let self = self else { return }
             while (!self.stop) {
                 autoreleasepool {
+                    /*
+                    WEBRTC
                     guard let channel = self.channel else { return }
-                        
                     while (channel.bufferedAmount != 0) {
                         self.semaphore_webRTCdataBuffer.wait()
                     }
+                    */
+                    
+                    while (SocketPeer.shared.amount != 0) {
+                        self.semaphore_webRTCdataBuffer.wait()
+                    }
+                    
+                    
                     
                     while (self.dataBuffer.isEmpty()) {
                         self.semaphore_dataBuffer.wait()
@@ -115,8 +123,8 @@ class DataTransmitter: ObservableObject {
                     DispatchQueue.main.async {
                         DataFilter.shared.updateDelay(sendingTime: sendingTime)
                     }
-                    
-                    channel.sendData(RTCDataBuffer(data: packet, isBinary: true))
+                    SocketPeer.shared.send(message: packet)
+                    //WEBRTC channel.sendData(RTCDataBuffer(data: packet, isBinary: true))
                 }
             }
         }

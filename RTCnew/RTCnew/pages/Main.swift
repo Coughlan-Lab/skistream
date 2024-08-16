@@ -24,6 +24,7 @@ struct Main: View {
     @State private var unavailableSensors: [String] = []
     
     @Binding var delay: Double
+    @ObservedObject var sockerpeer: SocketPeer = SocketPeer.shared
     
     func checkSensorAvailability() {
         guard let conf = Model.shared.t_currentConf else {
@@ -86,7 +87,8 @@ struct Main: View {
     }
     
     func allOk() -> Bool {
-        return model.receiverState == .serverDelay && model.t_currentConf != nil && self.connectionState == .connected && transmitter.channel != nil
+        return SocketPeer.shared.isConnected && model.t_currentConf != nil
+        //return model.receiverState == .serverDelay && model.t_currentConf != nil && self.connectionState == .connected && transmitter.channel != nil
     }
     
     func startAll(){
@@ -121,10 +123,11 @@ struct Main: View {
     
     var body: some View {
         VStack{
-            if model.receiverState != .serverDelay {Text("synch with receiver before start").foregroundStyle(.red)}
+            //if model.receiverState != .serverDelay {Text("synch with receiver before start").foregroundStyle(.red)}
             if model.t_currentConf == nil {Text("choose a configuration in SessionSettings tab before start").foregroundStyle(.red)}
-            if transmitter.channel == nil {Text("no available channel, connect in connectionSetting tab or close and reopen the app if the problem persist").foregroundStyle(.red)}
+            //if transmitter.channel == nil {Text("no available channel, connect in connectionSetting tab or close and reopen the app if the problem persist").foregroundStyle(.red)}
             if isRunning{Text("delay (ms): \(self.delay)")}
+            if !sockerpeer.isConnected {Text("no available socket connection, connect in connectionSetting tab").foregroundStyle(.red)}
             HStack {
                 Circle()
                     .fill(isRunning ? Color.green : Color.red)
@@ -145,6 +148,11 @@ struct Main: View {
         }
         .onChange(of: connectionState) { newValue in
             if newValue != .connected && isRunning {
+                stopAll()
+            }
+        }
+        .onChange(of: sockerpeer.isConnected) { newValue in
+            if !newValue && isRunning {
                 stopAll()
             }
         }
