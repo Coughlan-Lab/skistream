@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DataBuffer {
+class DataBuffer: ObservableObject {
     
     static let shared = DataBuffer()
     
@@ -15,8 +15,10 @@ class DataBuffer {
     var buffer: [DataPacket] = []
     //var maxSize: Int = Int(10 * 1000000) // bytes to MB
     //var maxSize: Int = 16 * 1000 // 16KB, max datachannel x msg
-    var maxSize: Int = 50 * 1000 // x * 1000 = x KB
+    var maxSize: Double = 500 * 1000 // x * 1000 = x KB
     //var maxSize: Int = 	65507 // max MTU using udp without headers
+    
+    @Published var fill: Double = 0.0
     
     func push(packet: DataPacket) -> Bool {
         DispatchQueue.global().sync{ self.lock.lock() }
@@ -37,18 +39,21 @@ class DataBuffer {
     
     func canContain(packet: DataPacket) -> Bool {
         DispatchQueue.global().sync{ self.lock.lock() }
-        let res = packet.getSize() <= maxSize - buffer.reduce(0, { partialResult, dataPacket in partialResult + dataPacket.getSize()})
-        DispatchQueue.global().sync{ self.lock.unlock() }
-        return res
+        let bufferFill = buffer.reduce(0, { partialResult, dataPacket in partialResult + dataPacket.getSize()})
+        let packetSize = packet.getSize()
+        //let res = packetSize <= maxSize - bufferFill
+        DispatchQueue.main.async {self.fill = min(( bufferFill + packetSize ) / self.maxSize, 1.0) }
+        DispatchQueue.global().sync{self.lock.unlock()}
+        return self.fill < 1
     }
     
     func isEmpty() -> Bool {
         return buffer.isEmpty
     }
     
-    func isFull() -> Bool {
+    /*func isFull() -> Bool {
         return buffer.count == maxSize
-    }
+    }*/
     
     /*func getData() -> String {
         DispatchQueue.global().sync{ self.lock.lock() }
@@ -70,7 +75,8 @@ class DataBuffer {
         }
         result.append("]".data(using: .utf8)!)
         self.buffer = []
-        DispatchQueue.global().sync{ self.lock.unlock() }
+        DispatchQueue.main.async {self.fill = 0.0}
+        DispatchQueue.global().sync{self.lock.unlock()}
         return result
     }
     

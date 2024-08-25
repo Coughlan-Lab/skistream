@@ -26,6 +26,8 @@ struct Main: View {
     @Binding var delay: Double
     @ObservedObject var sockerpeer: SocketPeer = SocketPeer.shared
     
+    @StateObject private var dataBuffer = DataBuffer.shared
+    
     func checkSensorAvailability() {
         guard let conf = Model.shared.t_currentConf else {
             print("Error: No configuration available")
@@ -59,16 +61,12 @@ struct Main: View {
             unavailableSensors.append("Location")
         }
         
-        planeCheck: if conf.ARSession && conf.ARSession_conf == .ARWorldTrackingConfiguration {
-            if !(ARWorldTrackingConfiguration.isSupported) {
-                unavailableSensors.append("ARWorldTrackingConfiguration")
-                break planeCheck
-            }
-            if !(ARWorldTrackingConfiguration().planeDetection.contains([.horizontal, .vertical])) {
-                unavailableSensors.append("Plane Detection (Horizontal and Vertical)")
-            }
-            
-            
+        if conf.ARSession && conf.ARSession_conf == .ARWorldTrackingConfiguration && !(ARWorldTrackingConfiguration.isSupported) {
+            unavailableSensors.append("ARWorldTrackingConfiguration")
+        }
+        
+        if conf.ARSession_settings[.PlaneDetection]!.enabled && !(ARWorldTrackingConfiguration().planeDetection.contains([.horizontal, .vertical])) {
+            unavailableSensors.append("Plane Detection (Horizontal and Vertical)")
         }
         
         if (conf.ARSession_settings[.ObjectDetection]!.enabled && 
@@ -145,6 +143,9 @@ struct Main: View {
             }.buttonStyle(.bordered).disabled(!allOk())
             if arView_WorldTracking != nil {arView_WorldTracking!}
             Spacer()
+            ProgressView(value: dataBuffer.fill) {
+                Text("Buffer fill")
+            }
         }
         .onChange(of: connectionState) { newValue in
             if newValue != .connected && isRunning {

@@ -1,10 +1,14 @@
 import socket
 import signal
 import sys
+import json
 
 udp_server_socket = None
 tcp_server_socket = None
 client_address = None
+
+# Global storage for chunks
+messages = {}
 
 def signal_handler(sig, frame):
     #print("\nCtrl+C intercepted! Cleaning up...")
@@ -51,16 +55,77 @@ def start_udp_server(host, port):
     while True:
         data, client_address = udp_server_socket.recvfrom(65535)  # Buffer size is 1024 bytes
         print(f"received {len(data)} bytes")
+        
         if len(data) == 1:
             ack_message = "1".encode('utf-8')
             udp_server_socket.sendto(ack_message, client_address)  # Send ACK back to the client
             continue
-        if data:
-            with open("socketStream.txt", 'a') as file:
-                file.write(data.decode('utf-8'))
+        
         if data.decode('utf-8') == "exit":
             print(f"Closing connection with {client_address}")
             break
+
+        # Convert data to string
+        data_str = data.decode('utf-8')
+        
+        # Find the boundary between JSON header and payload
+        json_end_index = data_str.find('}', 70)
+        if json_end_index == -1:
+            print("Invalid data format, no JSON end found.")
+            continue
+
+        json_part = data_str[:json_end_index+1]
+        payload_part = data_str[json_end_index+1:]
+        
+        
+        # Write the complete message to the file
+        #with open("socketStream2.txt", 'a') as file:
+        #    file.write(data_str + '\n')
+        
+        # Decode the received data
+        try:
+            message = json.loads(json_part)
+        except json.JSONDecodeError:
+            print("Received data is not a valid JSON.")
+            continue
+
+        # Check if it's a valid message with necessary fields
+        if 'id' in message and 'totalChunks' in message and 'sequenceNumber' in message:
+            msg_id = message['id']
+            sequence_number = message['sequenceNumber']
+            total_chunks = message['totalChunks']
+
+            if total_chunks==1:
+                # Write the complete message to the file
+                with open("socketStream.txt", 'a') as file:
+                    file.write(payload_part + '\n')
+                continue
+            
+            print(f"receive {msg_id}, chunck {sequence_number} of {total_chunks}")
+            # Initialize or append to message storage
+            if msg_id not in messages:
+                messages[msg_id] = [None] * total_chunks
+
+            messages[msg_id][sequence_number-1] = payload_part
+
+            # Check if all chunks have been received
+            if None not in messages[msg_id]:
+                # Reassemble the complete message
+                complete_message = ''.join(messages[msg_id])
+                
+                # Write the complete message to the file
+                with open("socketStream.txt", 'a') as file:
+                    file.write(complete_message + '\n')
+                
+                # Remove the message from storage after writing
+                del messages[msg_id]
+            print(f"pending packet to complete: { len(messages)}")
+        #if data:
+        #    with open("socketStream.txt", 'a') as file:
+        #        file.write(data.decode('utf-8'))
+        #        file.write('\n')
+        
+        
     udp_server_socket.close()
 
 if __name__ == "__main__":

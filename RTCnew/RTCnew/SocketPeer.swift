@@ -19,6 +19,7 @@ class SocketPeer: ObservableObject {
     @Published var isConnected = false
     var amount = 0
     let logFileURL = Model.shared.directoryURL.appendingPathComponent("logData.txt")
+    var maxMTU = 0.0
     
     init(){
         // Create the log file if it doesn't exist
@@ -69,18 +70,55 @@ class SocketPeer: ObservableObject {
     
     func send(message: Data) {
         self.amount = 1
-        connection!.send(content: message, completion: .contentProcessed({ error in
-            if let error = error {
-                self.isConnected = false
-                print("Failed to send: \(error)")
-                return
-            }
-            //message correctly sended
-            self.logMessage(message)
-            self.amount = 0
-            DataTransmitter.shared.semaphore_webRTCdataBuffer.signal()
-        }))
+        
+        self.logMessage(message)
+        
+        let chunks = splitDataIntoChunks(message, chunkSize: 1300) // Example chunk size
+        let id = UUID()
+        for (index, chunk) in chunks.enumerated() {
+            let packet = createPacket(with: chunk, id: id, sequenceNumber: index+1, totalChunks: chunks.count)
+            //sendPacket(packet, toAddress: address, port: port)
+            connection!.send(content: packet, completion: .contentProcessed({ error in
+                if let error = error {
+                    self.isConnected = false
+                    print("Failed to send: \(error)")
+                    DataTransmitter.shared.semaphore_webRTCdataBuffer.signal()
+                    self.amount = 0
+                    return
+                }
+            }))
+        }
+        DataTransmitter.shared.semaphore_webRTCdataBuffer.signal()
+        self.amount = 0
+        
+        
     }
+
+    func splitDataIntoChunks(_ data: Data, chunkSize: Int) -> [Data] {
+        var chunks: [Data] = []
+        var offset = 0
+        while offset < data.count {
+            let end = min(offset + chunkSize, data.count)
+            let chunk = data.subdata(in: offset..<end)
+            chunks.append(chunk)
+            offset += chunkSize
+        }
+        return chunks
+    }
+    
+    struct PacketHeader: Codable {
+        var id: UUID
+        var sequenceNumber: Int
+        var totalChunks: Int
+    }
+
+    func createPacket(with data: Data, id: UUID, sequenceNumber: Int, totalChunks: Int) -> Data {
+        //headerData.count ~ 100
+        let packet = PacketHeader(id: id, sequenceNumber: sequenceNumber, totalChunks: totalChunks)
+        let packetData = try! JSONEncoder().encode(packet)
+        return packetData + data
+    }
+
     
     private func logMessage(_ data: Data) {
         if let fileHandle = try? FileHandle(forWritingTo: logFileURL) {

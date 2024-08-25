@@ -26,8 +26,8 @@ class DataPacket {
         self.dataTimestamp = packet.dataTimestamp + Model.shared.clockSynch.toAdd_toTheLocalClock
     }
     
-    func getSize() -> Int {
-        return (
+    func getSize() -> Double {
+        return Double(
             dataType.label.data(using: .utf8)!.count +
             data.count +
             dataTimestamp.description.data(using: .utf8)!.count +

@@ -123,6 +123,7 @@ class DataTransmitter: ObservableObject {
                     DispatchQueue.main.async {
                         DataFilter.shared.updateDelay(sendingTime: sendingTime)
                     }
+                    
                     SocketPeer.shared.send(message: packet)
                     //WEBRTC channel.sendData(RTCDataBuffer(data: packet, isBinary: true))
                 }
