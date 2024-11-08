@@ -97,11 +97,12 @@ def start_udp_server(host, port):
 
             if total_chunks==1:
                 # Write the complete message to the file
-                with open("socketStream.txt", 'a') as file:
-                    file.write(payload_part + '\n')
+                #with open("socketStream.txt", 'a') as file:
+                #    file.write(payload_part + '\n')
+                complete_message_received(payload_part)
                 continue
             
-            print(f"receive {msg_id}, chunck {sequence_number} of {total_chunks}")
+            #print(f"receive {msg_id}, chunck {sequence_number} of {total_chunks}")
             # Initialize or append to message storage
             if msg_id not in messages:
                 messages[msg_id] = [None] * total_chunks
@@ -114,19 +115,20 @@ def start_udp_server(host, port):
                 complete_message = ''.join(messages[msg_id])
                 
                 # Write the complete message to the file
-                with open("socketStream.txt", 'a') as file:
-                    file.write(complete_message + '\n')
-                
+                #with open("socketStream.txt", 'a') as file:
+                #    file.write(complete_message + '\n')
+                #call function for entire message
+                complete_message_received(complete_message)
                 # Remove the message from storage after writing
                 del messages[msg_id]
-            print(f"pending packet to complete: { len(messages)}")
-        #if data:
-        #    with open("socketStream.txt", 'a') as file:
-        #        file.write(data.decode('utf-8'))
-        #        file.write('\n')
+            #print(f"pending packet to complete: { len(messages)}")
         
         
     udp_server_socket.close()
+
+def complete_message_received(message):
+    with open("socketStream.txt", 'a') as file:
+        file.write(complete_message + '\n')
 
 if __name__ == "__main__":
     # Register the signal handler for SIGINT (Ctrl+C)
