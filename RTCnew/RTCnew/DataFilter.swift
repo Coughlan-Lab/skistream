@@ -29,7 +29,7 @@ class DataFilter {
             
         }*/
         //print("old delay: \(transmissionDelay)")
-        transmissionDelay = min(0, (sendingTime - olderTimestamp) * 1000)
+        transmissionDelay = max(0, (sendingTime - olderTimestamp) * 1000)
         //print("update delay: \(transmissionDelay)")
     }
     

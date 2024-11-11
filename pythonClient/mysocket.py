@@ -128,7 +128,7 @@ def start_udp_server(host, port):
 
 def complete_message_received(message):
     with open("socketStream.txt", 'a') as file:
-        file.write(complete_message + '\n')
+        file.write(message + '\n')
 
 if __name__ == "__main__":
     # Register the signal handler for SIGINT (Ctrl+C)
