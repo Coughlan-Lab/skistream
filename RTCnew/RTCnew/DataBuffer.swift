@@ -48,7 +48,10 @@ class DataBuffer: ObservableObject {
     }
     
     func isEmpty() -> Bool {
-        return buffer.isEmpty
+        DispatchQueue.global().sync{ self.lock.lock() }
+        let empty = buffer.isEmpty
+        DispatchQueue.global().sync{self.lock.unlock()}
+        return empty
     }
     
     /*func isFull() -> Bool {
