@@ -126,8 +126,10 @@ This priority-based mechanism ensures that time-sensitive data (such as real-tim
 ### Enqueueing Policy (Last-Only)
 
 In addition to the priority-based buffer management, there is an **Enqueueing Policy** applied to each data type, **Last-Only** and **Enqueue**.
+
 The **Last-Only** policy ensures that only the most recent data of a given type is kept in the buffer when multiple pieces of the same data type are enqueued.
 - **Last-Only Rule**: If a new data item of a specific type is enqueued while an older one is still present, the system will discard the older data and only retain the latest piece of data for that type in the buffer.
+
 The **Enqueue** policy ensures that all data of a given type is kept in the buffer when multiple pieces of the same data type are enqueued.
 - **Enqueue Rule**: If a new data item of a specific type is enqueued while an older one is still present, the system will kept both.
 
