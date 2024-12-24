@@ -23,7 +23,22 @@ struct Socket: View {
             HStack{
                 Button("connect"){
                     Storage.shared.saveString(model.remoteIP)
-                    SocketPeer.shared.connect()
+                    Task{
+                        let result = await SocketPeer.shared.connect()
+                        let _ = print(result.isConnected)
+                        if !result.isConnected {
+                            NotificationCenter.default.post(
+                                name: .genericMessage,
+                                object: ["msg": "Failed to connect: \(result.msg)", "backgroundColor": Color.red]
+                            )
+                        } else {
+                            NotificationCenter.default.post(
+                                name: .genericMessage,
+                                object: ["msg": "connected", "backgroundColor": Color.green]
+                            )
+                        }
+                    }
+                    
                 }.buttonStyle(.bordered).disabled(socketpeer.isConnected)
                 //Button("sendmesage"){sendPing(message: "ping")}
                 Button("close connection"){

@@ -29,7 +29,8 @@ class SocketPeer: ObservableObject {
         
     }
     
-    func connect(){
+    func connect() async -> (isConnected: Bool, msg: String) {
+        var returnValue = (isConnected: false, msg: "")
         print("Attempting to connect...")
         
         host = NWEndpoint.Host(Model.shared.remoteIP)
@@ -41,10 +42,12 @@ class SocketPeer: ObservableObject {
             switch newState {
                 case .ready:
                     print("Connected to client")
+                    //return (true,"Connected to client")
                     //receiveData(connection: connection)
                 case .failed(let error):
                     self.isConnected = false
                     print("Connection failed: \(error)")
+                    //return (isConnected: false, msg: "Connection failed: \(error)")
                 case .cancelled:
                     self.isConnected = false
                     print("Connection cancelled by client")
@@ -59,13 +62,14 @@ class SocketPeer: ObservableObject {
         }
         
         connection!.start(queue: DispatchQueue(label: "Socket.Queue"))
-        connection!.send(content: "1".data(using: .utf8), completion: .contentProcessed({ error in
+        await connection!.send(content: "1".data(using: .utf8), completion: .contentProcessed({error in
             if let error = error {
                 print("Failed to send: \(error)")
-                return
+                returnValue.msg = "Failed to send: \(error)"
             }
-            self.receivePong()
         }))
+        returnValue.isConnected = await self.receivePong()
+        return returnValue
     }
     
     func send(message: Data) {
@@ -131,27 +135,34 @@ class SocketPeer: ObservableObject {
         }
     }
 
-    func receivePong() {
-        connection!.receive(minimumIncompleteLength: 1, maximumLength: 1024) { (data, _, isComplete, error) in
-            if let data = data, let response = String(data: data, encoding: .utf8) {
-                if response == "1" {
-                    DispatchQueue.main.sync {
-                        self.isConnected = true
+    func receivePong() async -> Bool {
+        print(connection?.state)
+        return await withCheckedContinuation { continuation in
+            connection!.receive(minimumIncompleteLength: 1, maximumLength: 1024) { (data, _, isComplete, error) in
+                if let data = data, let response = String(data: data, encoding: .utf8) {
+                    // Check the response and return true/false based on the received data
+                    if response == "1" {
+                        DispatchQueue.main.async {
+                            self.isConnected = true
+                        }
+                        continuation.resume(returning: true)
+                    } else if response == "0" {
+                        DispatchQueue.main.async {
+                            self.isConnected = false
+                        }
+                        continuation.resume(returning: false)
+                    } else {
+                        print("Received: \(response)")
+                        continuation.resume(returning: false)
                     }
-                    self.receivePong()
+                } else if let error = error {
+                    print("Failed to receive: \(error)")
+                    continuation.resume(returning: false) // Return false on error
                 }
-                if response == "0" {
-                    DispatchQueue.main.sync {
-                        self.isConnected = false
-                    }
-                }
-                print("Received: \(response)")
-            } else if let error = error {
-                print("Failed to receive: \(error)")
             }
-            //exit(EXIT_SUCCESS)
         }
     }
+
     
     func closeConnection(){
         connection!.send(content: "exit".data(using: .utf8), completion: .contentProcessed({ error in
