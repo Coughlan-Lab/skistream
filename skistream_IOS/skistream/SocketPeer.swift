@@ -36,7 +36,8 @@ class SocketPeer: ObservableObject {
         host = NWEndpoint.Host(Model.shared.remoteIP)
         port = NWEndpoint.Port(integerLiteral: 65432)
         
-        connection = NWConnection(host: host!, port: port!, using: .udp)
+        //connection = NWConnection(host: host!, port: port!, using: .udp)
+        connection = NWConnection(host: host!, port: port!, using: .tcp)
         
         connection!.stateUpdateHandler = { newState in
             switch newState {
@@ -77,7 +78,7 @@ class SocketPeer: ObservableObject {
         
         self.logMessage(message)
         
-        let chunks = splitDataIntoChunks(message, chunkSize: 1300) // Example chunk size
+        let chunks = splitDataIntoChunks(message, chunkSize: 600) // Example chunk size
         let id = UUID()
         for (index, chunk) in chunks.enumerated() {
             let packet = createPacket(with: chunk, id: id, sequenceNumber: index+1, totalChunks: chunks.count)
@@ -110,17 +111,18 @@ class SocketPeer: ObservableObject {
         return chunks
     }
     
-    struct PacketHeader: Codable {
+    struct Packet: Codable {
         var id: UUID
         var sequenceNumber: Int
         var totalChunks: Int
+        var payload: Data
     }
 
     func createPacket(with data: Data, id: UUID, sequenceNumber: Int, totalChunks: Int) -> Data {
         //headerData.count ~ 100
-        let packet = PacketHeader(id: id, sequenceNumber: sequenceNumber, totalChunks: totalChunks)
+        let packet = Packet(id: id, sequenceNumber: sequenceNumber, totalChunks: totalChunks, payload: data)
         let packetData = try! JSONEncoder().encode(packet)
-        return packetData + data
+        return packetData
     }
 
     
